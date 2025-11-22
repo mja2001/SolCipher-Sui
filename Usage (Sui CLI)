@@ -1,0 +1,10 @@
+ # 1. Create your personal encryption key
+sui client call --package <PACKAGE_ID> --module spork --function create_key
+
+# 2. Encrypt something
+sui client call --package <PACKAGE_ID> --module spork --function encrypt \
+  --args <YOUR_KEY_OBJECT_ID> 0x48656c6c6f2053756921  # "Hello Sui!" in hex
+
+# 3. Decrypt (ciphertext object gets burned for safety)
+sui client call --package <PACKAGE_ID> --module spork --function decrypt \
+  --args <YOUR_KEY_OBJECT_ID> <CIPHERTEXT_OBJECT_ID>
