@@ -1,0 +1,6 @@
+Feature,Status,Notes
+XOR demo cipher,Done,Fast & educational
+Full AES-256-GCM,In progress,"Real security, coming soon"
+Encrypted NFTs,Planned,Mint secrets only you can read
+On-chain private chats,Planned,Fully end-to-end on Sui
+ZK-encrypted objects,Dreaming,Maybe one day…
