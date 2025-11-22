@@ -1,0 +1,12 @@
+[package]
+name = "spork"
+version = "0.2.0"
+license = "MIT"
+
+[dependencies]
+Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "framework/testnet" }
+
+[addresses]
+spork = "0x0"
+std = "0x1"
+sui = "0x2"
