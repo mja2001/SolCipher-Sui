@@ -1,0 +1,11 @@
+# 1. Mint your key (use 32 random bytes IRL)
+sui client call --package <PKG> --module spork --function mint_key \
+  --args 0x00112233445566778899aabbccddeeff00112233445566778899aabbccddeeff
+
+# 2. Encrypt "gm"
+sui client call --package <PKG> --module spork --function encrypt \
+  --args <KEY_ID> 0x676d
+
+# 3. Decrypt (burns ciphertext)
+sui client call --package <PKG> --module spork --function decrypt \
+  --args <KEY_ID> <CIPHERTEXT_ID>
