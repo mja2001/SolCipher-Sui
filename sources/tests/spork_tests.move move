@@ -1,0 +1,37 @@
+#[test_only]
+module spork::spork_tests {
+    use spork::spork::{Self};
+    use sui::test_scenario;
+    use std::vector;
+
+    #[test]
+    fun test_encrypt_decrypt() {
+        let addr = @0xBEEF;
+        let scenario_val = test_scenario::begin(addr);
+        let scenario = &mut scenario_val;
+
+        // Mint key with 32-byte secret
+        let secret = x"00112233445566778899aabbccddeeff00112233445566778899aabbccddeeff";
+        spork::mint_key(secret, test_scenario::ctx(scenario));
+
+        test_scenario::next_tx(scenario, addr);
+        {
+            let key = test_scenario::take_from_sender<spork::SporkKey>(scenario);
+            let msg = b"gm sui, spork the world!";
+            spork::encrypt(&key, msg, test_scenario::ctx(scenario));
+            test_scenario::return_to_sender(scenario, key);
+        };
+
+        test_scenario::next_tx(scenario, addr);
+        {
+            let key = test_scenario::take_from_sender<spork::SporkKey>(scenario);
+            let ct = test_scenario::take_from_sender<spork::CipherText>(scenario);
+            let decrypted = spork::decrypt(&key, ct);
+            assert!(decrypted == b"gm sui, spork the world!", 1337);
+
+            test_scenario::return_to_sender(scenario, key);
+        };
+
+        test_scenario::end(scenario_val);
+    }
+}
